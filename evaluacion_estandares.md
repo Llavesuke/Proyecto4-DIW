@@ -8,7 +8,10 @@ Los estandares usados para este proyecto son:
 
 > [!NOTE]
 > HTML
+> 
 > CSS
+> 
+> JavaScript
 
 ### HTML
 
@@ -94,8 +97,127 @@ Se puede ver la utilización de media queries y unidades relativas como rem, vh 
 Por ejemplo el color-text: #e2e2b6 cumple el WCAG con el color-background: #2d3748 en 8.25:1 tanto como para textos normales como grandes aunque no todos los colores lo cumplen ya que --color-text-dark: #363636 y
 --color-background-darker: #444 no cumplen con el estandar WCAG para textos normales, pero si con textos grandes.
 
+---
+
 ### JavaScript
 
 1. Separación entre lógica y presentación
 
 
+```JS
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const emailError = checkEmail(formData.email);
+
+    if (emailError) {
+      toast.error('Valid email is required', {
+        style: {
+          backgroundColor: '#003366',
+          color: '#E2E2B6',
+        },
+      });
+      return; // Prevents further execution if there is an error
+    }
+
+    try {
+      await login({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      toast.success('Login successful!', {
+        style: {
+          backgroundColor: '#003366',
+          color: '#E2E2B6',
+        },
+      });
+
+      console.log("User logged in");
+
+      isUsserLogged(); // Check if the user is logged in
+
+    } catch (error) {
+      if (error.code === "auth/invalid-credential") {
+        toast.error('Invalid email or password. Please try again', {
+          style: {
+            backgroundColor: '#003366',
+            color: '#E2E2B6',
+          },
+        });
+      }
+
+      console.log(error.code);
+      console.log(error.message);
+    }
+  };
+
+  return (
+    <main className="login">
+      <section className="login__container">
+        <header className="login__header">
+          <h2 className="login__title">Welcome Back!</h2>
+          <p className="login__subtitle">Please login to your account</p>
+...
+```
+Aunque se utiliza hooks y validaciones, deberían extraerse todas estas funciones a custom hooks y dejar en el componente solo la presentación visual, lo cual no ocurre en casi ningún componente.
+
+2. Manejo de errores
+
+```JS
+  useEffect(() => {
+    const fetchChapterDetails = async () => {
+      try {
+        // Fetch chapter details
+        const chapterResponse = await axios.get(`https://api.mangadex.org/chapter/${chapterId}`);
+        const chapterData = chapterResponse.data.data;
+        const title = chapterData.attributes.title || null;
+        setChapterTitle(title);
+
+        // Fetch related manga title
+        const mangaId = chapterData.relationships.find((rel) => rel.type === 'manga')?.id;
+        if (mangaId) {
+          const mangaResponse = await axios.get(`https://api.mangadex.org/manga/${mangaId}`);
+          const mangaData = mangaResponse.data.data;
+          setMangaTitle(mangaData.attributes.title.en || 'Unknown Title');
+        }
+
+        // Fetch chapter pages
+        const pagesResponse = await axios.get(`https://api.mangadex.org/at-home/server/${chapterId}`);
+        const { baseUrl, chapter } = pagesResponse.data;
+        const imageUrls = chapter.data.map(
+          (filename) => `${baseUrl}/data/${chapter.hash}/${filename}`
+        );
+
+        setPages(imageUrls);
+      } catch (err) {
+        console.error('Error fetching chapter details or pages:', err);
+        setError('Failed to load chapter.');
+      } finally {
+        setLoading(false);
+      }
+    };
+```
+Se utiliza try-catch para controlar los errores
+
+---
+
+## Facilidad de navegación
+
+### Ratón
+No se encuentran problemas al navegar utilizando el ratón. Los elementos son lo suficientemente grandes y fáciles de clicar. La navegación es clara y directa.
+
+### Teclado
+En esta ocasión hay varios problemas al navegar con el teclado entre los que encontramos
+
+> [!WARNING]
+> La web no funciona si realizas un zoom pronunciado, se rompe y no es posible navegar por ella.
+> 
+> Al usar el focus para seleccionar (utilizando el tab) elementos, nos encontramos que no es posible seleccionar los items de los mangas ni se puede acceder de manera correcta a los elementos de la navbar
+> 
+> Los toasts no son accesibles tampoco, ya que no se puede seleccionar el elemento usando el teclado
+
+
+### Pantalla táctil
+
+Algunos elementos son difíciles de acceder a través de pantallas táctiles, especialmente en dispositivos con resoluciones más pequeñas. Esto puede mejorar con un diseño más adaptado.
