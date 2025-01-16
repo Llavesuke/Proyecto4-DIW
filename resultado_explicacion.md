@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/e3a65f6a-0a7f-4152-ad62-9de9e14e34f3)# Pruebas de usabilidad y velocidad con herramientas automáticas
 
 # WebPageTest
 
@@ -9,7 +8,7 @@
 ![Screenshot from 2025-01-16 18-38-56](https://github.com/user-attachments/assets/0d462adb-1dd2-4b22-b139-012804273046)
 *Edge*
 
-Como se puede ver los dos tienen rendimientos muy parecido ya que al fin y al cabo Edge esta basado en una versión de código libre de Chrome (Chromium), lo más destacable es en la diferencia de 
+Como se puede ver los dos tienen rendimientos muy similares ya que al fin y al cabo Edge esta basado en una versión de código libre de Chrome (Chromium), lo más destacable es en la diferencia de 
 Total Blocking Time donde en la versión de Chrome tarda 0.41 segundos mientras que en Edge ha tardado 0 segundos
 
 ## Navegacion - WebPageTest
@@ -96,6 +95,7 @@ Otro punto importante son las imágenes, que no están optimizadas para los form
 ---
 
 ## Optimización con LightHouse
+
 
 ![image](https://github.com/user-attachments/assets/6c7b30af-4be0-4eed-a4c2-bc5cf0eeedda)
 
