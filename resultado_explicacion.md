@@ -143,6 +143,10 @@ El informe de Lighthouse muestra que aunque el rendimiento en general es bastant
   **Optimizar la Codificación de Imágenes:**
     Comprimir las imágenes de manera eficiente usando herramientas como TinyPNG o ImageOptim para reducir el tamaño sin perder calidad. Esto podría ahorrar hasta 5,612 KiB.
 
+
+Ahora probare con la versión movil 
+
+
 ## Evaluación con Ghost Inspector
 
 Para realizar esta evaluación deberemos registrarnos en [Ghost Inspector](https://ghostinspector.com/) e instalar la [extensión](https://chromewebstore.google.com/detail/ghost-inspector-web-test/aicdiabnghjnejfempeinmnphllefehc) oficial del servicio en nuestro navegador.
@@ -158,3 +162,54 @@ Y vemos los resultados luego en el dashboard del servicio.
 ![image](https://github.com/user-attachments/assets/e25301f5-df77-4144-9d24-6469dcb81013)
 
 Como se ve en la captura, no hay ningun error aparente lo que nos conlleva a pensar a que la aplicación al menos en la base de la misma es 100% funcional
+
+Tambien probare esta herramienta con resolución móvil (Iphone X) para ver si encuentra algun problema que no estaba previsto en la versión de escritorio
+
+https://github.com/user-attachments/assets/19ad714b-9b95-45d8-a1a5-12a393a454f5
+
+Ahora mirare los resultados de este test:
+![image](https://github.com/user-attachments/assets/f97c5ec1-9273-4197-b501-c93465157688)
+
+Como se ve en la captura, no hay ningún problema aparente en el flujo crítico de los dispositivos móviles.
+
+## Reflexiones finales sobre la usabilidad y navegación del sitio web
+
+Después de analizar la página web "Shibuya Station", puedo destacar varios puntos positivos, aunque también encontré áreas importantes a mejorar. A continuación, detallo mis observaciones divididas por categorías:
+
+### 1. Accesibilidad
+
+   Aspectos positivos:
+      Se utilizan etiquetas semánticas como <header>, <main> y <footer>, lo que mejora la comprensión del contenido para tecnologías de asistencia.
+        Las imágenes incluyen atributos alt, y los formularios tienen label, lo que es esencial para usuarios con discapacidades visuales.
+
+   Aspectos a mejorar:
+      No todos los elementos de la página son navegables con el teclado, como los toasts y algunos menús desplegables.
+        Falta optimizar el contraste de colores, ya que algunos textos no cumplen los estándares WCAG, dificultando la lectura en ciertos casos.
+
+### 2. Diseño y experiencia en dispositivos
+
+   Aspectos positivos:
+      La página utiliza un diseño responsive basado en media queries y unidades relativas como rem y vh.
+        En pantallas grandes, los elementos se ajustan bien y ofrecen una experiencia agradable.
+
+   Aspectos a mejorar:
+      En pantallas pequeñas (móviles o tablets), algunos botones y enlaces son difíciles de pulsar.
+        Sería ideal simplificar la interfaz en dispositivos táctiles para mejorar la navegación y la usabilidad.
+
+### 3. Rendimiento técnico
+
+   Aspectos positivos:
+      En escritorio, la carga de la página es rápida y las métricas como el First Contentful Paint (FCP) y el Largest Contentful Paint (LCP) son aceptables.
+        El uso de try-catch en el código JavaScript asegura que la página no se rompa si ocurre algún error.
+
+   Aspectos a mejorar:
+      En móviles, el tiempo de carga es demasiado alto, llegando a 11 segundos para cargar el contenido principal. Esto afecta negativamente la experiencia del usuario.
+        El código JavaScript podría organizarse mejor, utilizando funciones más pequeñas y específicas, o incluso implementando custom hooks para simplificar la lógica.
+
+### 4. Conclusión
+
+En general, la página web tiene una buena base técnica, pero para ser más inclusiva y eficiente es importante:
+
+   Mejorar la accesibilidad, haciendo que todos los elementos sean navegables con teclado.
+   Ajustar el diseño para dispositivos táctiles pequeños y asegurar un mejor contraste de colores.
+   Optimizar el rendimiento móvil para reducir los tiempos de carga.
