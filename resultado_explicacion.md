@@ -100,44 +100,61 @@ Otro punto importante son las imágenes, que no están optimizadas para los form
 ![image](https://github.com/user-attachments/assets/6c7b30af-4be0-4eed-a4c2-bc5cf0eeedda)
 
 El informe de Lighthouse muestra que aunque el rendimiento en general es bastante bueno con una puntuación de 98 en rendimiento hay algunas áreas que podrían optimizarse para mejorar aún más la velocidad y la experiencia del usuario. A continuación, se detallan los resultados de los parámetros evaluados y las recomendaciones para optimizar cada uno:
-1. First Contentful Paint (FCP) - 0.7s
 
-    Análisis: El tiempo que tarda en mostrar el primer contenido visual es muy rápido (0.7 segundos).
-    Recomendación: Eliminar los recursos que bloquean el renderizado, como los scripts CSS o JavaScript no esenciales, que podrían retrasar aún más la visualización inicial. Lo que podría ahorrar hasta 310 ms.
+1. **First Contentful Paint (FCP) - 0.7s**
 
-2. Largest Contentful Paint (LCP) - 1.0s
+    **Análisis:** El tiempo que tarda en mostrar el primer contenido visual es muy rápido (0.7 segundos).
+    **Recomendación:** Eliminar los recursos que bloquean el renderizado, como los scripts CSS o JavaScript no esenciales, que podrían retrasar aún más la visualización inicial. Lo que podría ahorrar hasta 310 ms.
 
-    Análisis: El LCP mide el tiempo que tarda en renderizarse el elemento más grande visible, en este caso son 1.0 segundos. 
-    Recomendación: Minimizar el tamaño de las imágenes, optimizar la codificación de las mismas, y usa formatos como WebP o AVIF para reducir su tamaño. Este cambio puede ahorrar hasta 10,874 KiB en la carga de imágenes.
+2. **Largest Contentful Paint (LCP) - 1.0s**
 
-3. Total Blocking Time (TBT) - 0ms
+    **Análisis:** El LCP mide el tiempo que tarda en renderizarse el elemento más grande visible, en este caso son 1.0 segundos. 
+    **Recomendación:** Minimizar el tamaño de las imágenes, optimizar la codificación de las mismas, y usa formatos como WebP o AVIF para reducir su tamaño. Este cambio puede ahorrar hasta 10,874 KiB en la carga de imágenes.
 
-    Análisis: No se ha detectado ningun bloqueo durante la carga de la página. La página responde rápidamente a las interacciones del usuario.
-    Recomendación: Manténer el código JavaScript optimizado y dividido adecuadamente para seguir teniendo estos buenos resultados
+3. **Total Blocking Time (TBT) - 0ms**
 
-4. Cumulative Layout Shift (CLS) - 0.018
+    **Análisis:** No se ha detectado ningun bloqueo durante la carga de la página. La página responde rápidamente a las interacciones del usuario.
+    **Recomendación:** Manténer el código JavaScript optimizado y dividido adecuadamente para seguir teniendo estos buenos resultados
 
-    Análisis: El CLS mide la estabilidad visual del sitio durante la carga. El valor es de 0.018. 
-    Recomendación: Asegurarse de que todos los elementos de la página tengan un tamaño de contenedor especificado para evitar cualquier cambio inesperado en el diseño.
+4. **Cumulative Layout Shift (CLS) - 0.018**
 
-5. Speed Index (SI) - 0.8s
+    **Análisis:** El CLS mide la estabilidad visual del sitio durante la carga. El valor es de 0.018. 
+    **Recomendación:** Asegurarse de que todos los elementos de la página tengan un tamaño de contenedor especificado para evitar cualquier cambio inesperado en el diseño.
 
-    Análisis: El Speed Index es basicamente la rapidez con la que se renderiza todo el contenido visible. En la página de Shibuya Station es de 0.8 segundos.
-    Recomendación: Estar atento de que ningun script bloquee el hilo principal
+5. **Speed Index (SI) - 0.8s**
 
-Áreas de Mejora:
+    **Análisis:** El Speed Index es basicamente la rapidez con la que se renderiza todo el contenido visible. En la página de Shibuya Station es de 0.8 segundos.
+    **Recomendación:** Estar atento de que ningun script bloquee el hilo principal
 
-  Eliminar Recursos que Bloquean el Renderizado:
+### Áreas de Mejora:
+
+  **Eliminar Recursos que Bloquean el Renderizado:**
     Mover los scripts y recursos no esenciales al final de la carga o de usar los atributos async o defer en las etiquetas <script>, lo que puede ahorrar hasta 310 ms.
 
-  Reducir JavaScript No Utilizado:
+  **Reducir JavaScript No Utilizado:**
     Revisar los archivos JavaScript y elimina cualquier código no utilizado que se esté cargando, ya que se puede ahorrar hasta 56 KiB.
 
-  Servir Imágenes en Formatos de Próxima Generación:
+  **Servir Imágenes en Formatos de Próxima Generación:**
     Cambiar a formatos de imágenes como WebP puede reducir el tamaño de las imágenes hasta 10,874 KiB, lo que acelerará la carga de la página
 
-  Tamaño Adecuado de Imágenes:
+  **Tamaño Adecuado de Imágenes:**
     Revisar el tamaño de las imágenes para que coincidan con las dimensiones necesarias en la página. Este ajuste puede ahorrar hasta 17,584 KiB.
 
-  Optimizar la Codificación de Imágenes:
+  **Optimizar la Codificación de Imágenes:**
     Comprimir las imágenes de manera eficiente usando herramientas como TinyPNG o ImageOptim para reducir el tamaño sin perder calidad. Esto podría ahorrar hasta 5,612 KiB.
+
+## Evaluación con Ghost Inspector
+
+Para realizar esta evaluación deberemos registrarnos en [Ghost Inspector](https://ghostinspector.com/) e instalar la [extensión](https://chromewebstore.google.com/detail/ghost-inspector-web-test/aicdiabnghjnejfempeinmnphllefehc) oficial del servicio en nuestro navegador.
+
+Luego de esto, nos vamos a la página que en este caso es Shibuya Station y ejecutamos un nuevo test 
+![image](https://github.com/user-attachments/assets/1af90310-d253-4c51-a190-98e3b9d6e2c1)
+
+Ya con esto, solo debemos realizar el flujo crítico de la aplicación, el cual es un usuario que empieza en el home y decide leer un capítulo de un manga.
+
+https://github.com/user-attachments/assets/ef2a5b19-e1f6-4614-a5b7-149648608c25
+
+Y vemos los resultados luego en el dashboard del servicio.
+![image](https://github.com/user-attachments/assets/e25301f5-df77-4144-9d24-6469dcb81013)
+
+Como se ve en la captura, no hay ningun error aparente lo que nos conlleva a pensar a que la aplicación al menos en la base de la misma es 100% funcional
